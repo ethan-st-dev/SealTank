@@ -1,0 +1,21 @@
+{
+  "sceneName": "Sample Needle",
+  "meta": null,
+  "absolutePath": "https://localhost:3000",
+  "deployOnly": false,
+  "needleEditor": {
+    "enabled": true,
+    "components": true,
+    "materials": true,
+    "sceneCamera": false
+  },
+  "allowHotReload": true,
+  "generator": "Unity 6000.2.8f1, Needle Engine Integration @4.13.1",
+  "gzip": false,
+  "developmentBuild": false,
+  "license": {
+    "team": "org_mcxw3lu2nse0"
+  },
+  "facebookInstantGames": null,
+  "useRapier": true
+}
