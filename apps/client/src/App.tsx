@@ -1,5 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NeedleEngine } from './NeedleEngine';
+import { UsernamePrompt } from './components/UsernamePrompt';
+import { Header } from './components/Header';
 import { GameObject, onStart, Rigidbody } from '@needle-tools/engine';
 import { Vector3 } from 'three';
 
@@ -8,6 +10,15 @@ function randFloat(min: number, max: number) {
 }
 
 const App = () => {
+  const [username, setUsername] = useState<string | null>(null);
+
+  // Check for existing username in localStorage on mount
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('playerName');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
 
   // Fetch rigidbodies from needle
   const bodies: Rigidbody[] = [];
@@ -23,15 +34,23 @@ const App = () => {
     })
   };
 
+  const handleUsernameContinue = (newUsername: string) => {
+    setUsername(newUsername);
+  };
+
+  const handleLogout = () => {
+    setUsername(null);
+  };
+
+  // Show username prompt if no username is set
+  if (!username) {
+    return <UsernamePrompt onContinue={handleUsernameContinue} />;
+  }
+
   return (
     <>
-      <div className="top">
-        <h1>
-          <a id="needle" href="https://needle.tools" target="_blank">Needle Engine</a>
-          in
-          <a id="react" href="https://github.com/needle-engine/react-sample" target="_blank">React</a>
-        </h1>
-      </div>
+      <Header username={username} onLogout={handleLogout} />
+      
       <div id="container" className="needle-container">
         <NeedleEngine style={{ position: "relative", display: "flex" }} loading-style="light">
           <div style={{ width: "100%", heigth: "100%" }}>
