@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NeedleEngine } from './NeedleEngine';
 import { UsernamePrompt } from './components/UsernamePrompt';
 import { Header } from './components/Header';
+import { LobbyPage } from './components/LobbyPage';
 import { GameObject, onStart, Rigidbody } from '@needle-tools/engine';
 import { Vector3 } from 'three';
 
@@ -11,6 +12,7 @@ function randFloat(min: number, max: number) {
 
 const App = () => {
   const [username, setUsername] = useState<string | null>(null);
+  const [lobbyData, setLobbyData] = useState<any>(null);
 
   // Check for existing username in localStorage on mount
   useEffect(() => {
@@ -40,6 +42,16 @@ const App = () => {
 
   const handleLogout = () => {
     setUsername(null);
+    setLobbyData(null);
+  };
+
+  const handleLaunch = (data: any) => {
+    console.log('Launching with lobby data:', data);
+    setLobbyData(data);
+  };
+
+  const handleLeaveLobby = () => {
+    setLobbyData(null);
   };
 
   // Show username prompt if no username is set
@@ -47,11 +59,42 @@ const App = () => {
     return <UsernamePrompt onContinue={handleUsernameContinue} />;
   }
 
+  // Show lobby page if no lobby has been joined/created
+  if (!lobbyData) {
+    return (
+      <>
+        <Header username={username} onLogout={handleLogout} />
+        <LobbyPage username={username} onLaunch={handleLaunch} />
+      </>
+    );
+  }
+
+  // Show lobby page if no lobby has been joined/created
+  if (!lobbyData) {
+    return (
+      <>
+        <Header username={username} onLogout={handleLogout} />
+        <LobbyPage username={username} onLaunch={handleLaunch} />
+      </>
+    );
+  }
+
+  // Show game when lobby is active
   return (
     <>
       <Header username={username} onLogout={handleLogout} />
       
-      <div id="container" className="needle-container">
+      <div className="game-info">
+        <div className="game-info-content">
+          <h3>{lobbyData.action === 'create' ? '🎮 Hosting' : '🌊 Joined'}: {lobbyData.name || lobbyData.lobbyName}</h3>
+          <span className="room-type-badge">{lobbyData.roomType}</span>
+          <button className="leave-lobby-button" onClick={handleLeaveLobby}>
+            Leave Lobby
+          </button>
+        </div>
+      </div>
+
+      <div id="container" className="needle-container" style={{ marginTop: '7.5rem' }}>
         <NeedleEngine style={{ position: "relative", display: "flex" }} loading-style="light">
           <div style={{ width: "100%", heigth: "100%" }}>
             <button type="button" onClick={performJump} className="jump-button">Squish!</button>

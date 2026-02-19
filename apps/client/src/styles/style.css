@@ -12,10 +12,12 @@ body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
     font-family: 'Roboto', sans-serif;
-    background: #e0eefd;
-    background-image: linear-gradient(to right top, #6ee2ff, #88d5f6, #9cc8e8, #a8bcd6, #adb2c2, #a5a7b9, #9e9caf, #9791a5, #8c80a2, #836e9d, #7c5c97, #754990);
-    overflow: hidden;
-    color: black;
+    background: #0a0e27;
+    background-image: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 25%, #2d1b4e 50%, #1a1f3a 75%, #0a0e27 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #e0e0e0;
 }
 
 div {
@@ -137,12 +139,12 @@ h1 a {
 }
 
 .username-prompt-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(26, 31, 58, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 1.5rem;
     padding: 3rem 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 50px rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(117, 73, 144, 0.5);
     max-width: 400px;
     width: 90%;
     text-align: center;
@@ -151,12 +153,13 @@ h1 a {
 .username-prompt-card h1 {
     margin: 0 0 0.5rem 0;
     font-size: 2.5rem;
-    color: #333;
+    color: #e0e0e0;
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
 }
 
 .username-prompt-card p {
     margin: 0 0 2rem 0;
-    color: #666;
+    color: rgba(224, 224, 224, 0.7);
     font-size: 1.1rem;
 }
 
@@ -164,17 +167,19 @@ h1 a {
     width: 100%;
     padding: 1rem;
     font-size: 1.2rem;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(117, 73, 144, 0.4);
     border-radius: 0.75rem;
     outline: none;
     transition: all 0.2s ease;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
+    background: rgba(10, 14, 39, 0.8);
+    color: #e0e0e0;
 }
 
 .username-input:focus {
-    border-color: #754990;
-    box-shadow: 0 0 0 3px rgba(117, 73, 144, 0.1);
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3), 0 0 20px rgba(139, 92, 246, 0.2);
 }
 
 .continue-button {
@@ -182,19 +187,21 @@ h1 a {
     padding: 1rem;
     margin-top: 1.5rem;
     font-size: 1.2rem;
-    background: linear-gradient(to right, #754990, #7c5c97);
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
     color: white;
-    border: none;
+    border: 1px solid rgba(167, 139, 250, 0.5);
     border-radius: 0.75rem;
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
 .continue-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(117, 73, 144, 0.3);
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
 }
 
 .continue-button:active {
@@ -202,7 +209,7 @@ h1 a {
 }
 
 .error-message {
-    color: #d32f2f;
+    color: #ff6b6b;
     font-size: 0.9rem;
     margin-top: 0.5rem;
     text-align: left;
@@ -215,10 +222,10 @@ h1 a {
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(10, 14, 39, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(117, 73, 144, 0.3);
+    box-shadow: 0 2px 20px rgba(117, 73, 144, 0.2);
 }
 
 .header-content {
@@ -260,8 +267,8 @@ h1 a {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: rgba(117, 73, 144, 0.1);
-    border: 1px solid rgba(117, 73, 144, 0.2);
+    background: rgba(117, 73, 144, 0.3);
+    border: 1px solid rgba(117, 73, 144, 0.5);
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -270,13 +277,14 @@ h1 a {
 }
 
 .username-display:hover {
-    background: rgba(117, 73, 144, 0.15);
-    border-color: rgba(117, 73, 144, 0.3);
+    background: rgba(117, 73, 144, 0.5);
+    border-color: rgba(117, 73, 144, 0.7);
+    box-shadow: 0 0 10px rgba(117, 73, 144, 0.3);
 }
 
 .username-text {
     font-weight: 500;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .dropdown-arrow {
@@ -288,10 +296,10 @@ h1 a {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    background: white;
+    background: rgba(26, 31, 58, 0.98);
     border-radius: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(117, 73, 144, 0.4);
     min-width: 150px;
     overflow: hidden;
     z-index: 1000;
@@ -301,28 +309,499 @@ h1 a {
     display: block;
     width: 100%;
     padding: 0.75rem 1rem;
-    background: white;
+    background: transparent;
     border: none;
     text-align: left;
     cursor: pointer;
     transition: all 0.15s ease;
     font-family: 'Roboto', sans-serif;
     font-size: 0.95rem;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .dropdown-item:hover {
-    background: #f5f5f5;
+    background: rgba(117, 73, 144, 0.3);
 }
 
 .dropdown-item.logout {
-    color: #d32f2f;
+    color: #ff6b6b;
 }
 
 .dropdown-item.logout:hover {
-    background: #ffebee;
+    background: rgba(255, 107, 107, 0.2);
 }
 
 .needle-container {
     margin-top: 4rem;
+}
+
+/* Lobby Page Styles */
+.lobby-page {
+    min-height: calc(100vh - 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin-top: 4rem;
+}
+
+.lobby-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.lobby-main {
+    text-align: center;
+}
+
+.lobby-title {
+    font-size: 3rem;
+    margin: 0 0 1rem 0;
+    background: linear-gradient(to right, #a78bfa, #c084fc, #e879f9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+}
+
+.lobby-subtitle {
+    font-size: 1.2rem;
+    color: rgba(224, 224, 224, 0.7);
+    margin: 0 0 3rem 0;
+}
+
+.lobby-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.lobby-action-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    border: 2px solid rgba(117, 73, 144, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.lobby-action-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(117, 73, 144, 0.2);
+    border-color: rgba(117, 73, 144, 0.4);
+}
+
+.lobby-action-card .card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.lobby-action-card h2 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.lobby-action-card p {
+    margin: 0;
+    color: #666;
+    font-size: 1rem;
+}
+
+.lobby-form {
+    background: rgba(26, 31, 58, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(117, 73, 144, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(139, 92, 246, 0.1);
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: #a78bfa;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    color: #c084fc;
+    transform: translateX(-4px);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.form-title {
+    margin: 0 0 2rem 0;
+    font-size: 2.5rem;
+    color: #e0e0e0;
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid rgba(117, 73, 144, 0.4);
+    border-radius: 0.75rem;
+    outline: none;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    background: rgba(10, 14, 39, 0.8);
+    color: #e0e0e0;
+}
+
+.form-input:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3), 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.room-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.room-type-card {
+    padding: 1.5rem;
+    border: 2px solid rgba(117, 73, 144, 0.3);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(26, 31, 58, 0.6);
+}
+
+.room-type-card:hover {
+    border-color: rgba(167, 139, 250, 0.5);
+    background: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.room-type-card.selected {
+    border-color: #a78bfa;
+    background: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.room-type-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+}
+
+.room-type-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(224, 224, 224, 0.6);
+}
+
+.launch-button {
+    width: 100%;
+    padding: 1.25rem;
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    color: white;
+    border: 1px solid rgba(167, 139, 250, 0.5);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+}
+
+.launch-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.7);
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
+}
+
+.launch-button:active {
+    transform: translateY(0);
+}
+
+.launch-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.lobby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lobby-item {
+    padding: 1.5rem;
+    border: 2px solid rgba(117, 73, 144, 0.3);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(26, 31, 58, 0.8);
+}
+
+.lobby-item:hover {
+    border-color: rgba(167, 139, 250, 0.6);
+    background: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.lobby-item.selected {
+    border-color: #a78bfa;
+    background: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.lobby-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.lobby-item-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #e0e0e0;
+}
+
+.lobby-badge {
+    padding: 0.25rem 0.75rem;
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    color: #c084fc;
+    font-weight: 500;
+    border: 1px solid rgba(167, 139, 250, 0.4);
+}
+
+.lobby-item-info {
+    color: rgba(224, 224, 224, 0.7);
+    font-size: 0.95rem;
+}
+
+/* Game Info Bar */
+.game-info {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    background: rgba(139, 92, 246, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(167, 139, 250, 0.5);
+    box-shadow: 0 2px 20px rgba(139, 92, 246, 0.4);
+}
+
+.game-info-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.game-info-content h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.room-type-badge {
+    padding: 0.375rem 0.875rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.leave-lobby-button {
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+}
+
+.leave-lobby-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.needle-container.with-game-info {
+    margin-top: 7.5rem;
+}
+
+/* Updated Lobby Header */
+.lobby-header {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.lobby-header > div {
+    margin: 0 auto;
+}
+
+.create-lobby-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    color: white;
+    border: 1px solid rgba(167, 139, 250, 0.5);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.create-lobby-btn:hover {
+    transform: translateY(-52%);
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
+}
+
+.create-lobby-btn:active {
+    transform: translateY(0);
+}
+
+/* Lobby List Container */
+.lobby-list-container {
+    background: rgba(26, 31, 58, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(117, 73, 144, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(139, 92, 246, 0.1);
+    min-height: 400px;
+}
+
+/* Empty Lobbies State */
+.empty-lobbies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-lobbies h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.8rem;
+    color: #e0e0e0;
+}
+
+.empty-lobbies p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: rgba(224, 224, 224, 0.6);
+}
+
+/* Update lobby list for new context */
+.lobby-list-container .lobby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lobby-list-container .lobby-item {
+    padding: 1.5rem;
+    border: 2px solid rgba(117, 73, 144, 0.3);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(26, 31, 58, 0.8);
+}
+
+.lobby-list-container .lobby-item:hover {
+    border-color: #a78bfa;
+    background: rgba(139, 92, 246, 0.2);
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+}
+
+@media (max-width: 768px) {
+    .lobby-header {
+        padding-bottom: 1rem;
+    }
+    
+    .create-lobby-btn {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+    
+    .lobby-title {
+        font-size: 2rem;
+    }
+}
+
+/* Input Placeholder Styles for Dark Theme */
+.username-input::placeholder,
+.form-input::placeholder {
+    color: rgba(224, 224, 224, 0.4);
+}
+
+/* Scrollbar Styling for Dark Theme */
+.lobby-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lobby-list::-webkit-scrollbar-track {
+    background: rgba(10, 14, 39, 0.5);
+    border-radius: 4px;
+}
+
+.lobby-list::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 4px;
+}
+
+.lobby-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(167, 139, 250, 0.7);
 }
