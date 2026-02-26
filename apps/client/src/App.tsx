@@ -50,7 +50,19 @@ const App = () => {
     setLobbyData(data);
   };
 
-  const handleLeaveLobby = () => {
+  const handleLeaveLobby = async () => {
+    if (lobbyData?.lobbyId) {
+      try {
+        await fetch(`http://localhost:3001/api/lobbies/${lobbyData.lobbyId}/leave`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerName: username })
+        });
+        console.log('✅ Left lobby');
+      } catch (error) {
+        console.error('❌ Failed to leave lobby:', error);
+      }
+    }
     setLobbyData(null);
   };
 
@@ -95,7 +107,11 @@ const App = () => {
       </div>
 
       <div id="container" className="needle-container" style={{ marginTop: '7.5rem' }}>
-        <NeedleEngine style={{ position: "relative", display: "flex" }} loading-style="light">
+        <NeedleEngine 
+          style={{ position: "relative", display: "flex" }} 
+          loading-style="light"
+          room={lobbyData.roomName}
+        >
           <div style={{ width: "100%", heigth: "100%" }}>
             <button type="button" onClick={performJump} className="jump-button">Squish!</button>
           </div>

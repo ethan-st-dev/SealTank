@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface LobbyPageProps {
   username: string;
@@ -9,54 +9,140 @@ interface Lobby {
   id: string;
   name: string;
   roomType: string;
-  players: number;
+  sceneName: string;
+  host: string;
+  players: string[];
   maxPlayers: number;
 }
+
+const LOBBY_SERVER_URL = 'http://localhost:3001';
+const LOBBY_WS_URL = 'ws://localhost:3001/ws';
 
 export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [view, setView] = useState<'main' | 'create'>('main');
   const [lobbyName, setLobbyName] = useState('');
   const [roomType, setRoomType] = useState('standard');
-
-  // Dummy lobbies for demonstration (empty initially)
-  const availableLobbies: Lobby[] = [
-    // { id: '1', name: 'Ocean Arena', roomType: 'standard', players: 2, maxPlayers: 8 },
-    // { id: '2', name: 'Arctic Zone', roomType: 'ice', players: 5, maxPlayers: 10 },
-    // { id: '3', name: 'Deep Sea', roomType: 'deep', players: 1, maxPlayers: 6 },
-  ];
+  const [availableLobbies, setAvailableLobbies] = useState<Lobby[]>([]);
+  const [ws, setWs] = useState<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   const roomTypes = [
-    { value: 'standard', label: 'Standard Arena', description: 'Classic gameplay area' },
-    { value: 'ice', label: 'Ice Arena', description: 'Slippery surface with icebergs' },
-    { value: 'deep', label: 'Deep Sea', description: 'Dark depths with obstacles' },
-    { value: 'tropical', label: 'Tropical Bay', description: 'Warm waters and coral reefs' },
+    { value: 'standard', label: 'Standard Arena', description: 'Classic gameplay area', scene: 'Scene' },
+    { value: 'ice', label: 'Ice Arena', description: 'Slippery surface with icebergs', scene: 'Scene' },
+    { value: 'deep', label: 'Deep Sea', description: 'Dark depths with obstacles', scene: 'Scene' },
+    { value: 'tropical', label: 'Tropical Bay', description: 'Warm waters and coral reefs', scene: 'Scene' },
   ];
 
-  const handleCreateLobby = () => {
+  // Connect to WebSocket for real-time lobby updates
+  useEffect(() => {
+    const websocket = new WebSocket(LOBBY_WS_URL);
+    
+    websocket.onopen = () => {
+      console.log('✅ Connected to lobby server');
+      setIsConnected(true);
+    };
+
+    websocket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'lobby-list') {
+          console.log('📋 Received lobby list:', data.lobbies);
+          setAvailableLobbies(data.lobbies);
+        }
+      } catch (error) {
+        console.error('Failed to parse WebSocket message:', error);
+      }
+    };
+
+    websocket.onerror = (error) => {
+      console.error('❌ WebSocket error:', error);
+      setIsConnected(false);
+    };
+
+    websocket.onclose = () => {
+      console.log('🔌 Disconnected from lobby server');
+      setIsConnected(false);
+    };
+
+    setWs(websocket);
+
+    return () => {
+      websocket.close();
+    };
+  }, []);
+
+  const handleCreateLobby = async () => {
     if (lobbyName.trim().length < 3) {
       alert('Lobby name must be at least 3 characters');
       return;
     }
     
-    const lobbyData = {
-      name: lobbyName,
-      roomType: roomType,
-      host: username,
-      action: 'create'
-    };
+    const selectedRoom = roomTypes.find(r => r.value === roomType);
     
-    onLaunch(lobbyData);
+    try {
+      const response = await fetch(`${LOBBY_SERVER_URL}/api/lobbies/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: lobbyName,
+          roomType: roomType,
+          sceneName: selectedRoom?.scene || 'Scene',
+          host: username,
+          maxPlayers: 8
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create lobby');
+      }
+
+      const lobby = await response.json();
+      console.log('✅ Lobby created:', lobby);
+      
+      // Launch directly into the lobby
+      onLaunch({
+        lobbyId: lobby.id,
+        roomName: lobby.id,
+        lobbyName: lobby.name,
+        roomType: lobby.roomType,
+        sceneName: lobby.sceneName,
+        action: 'create'
+      });
+    } catch (error) {
+      console.error('❌ Failed to create lobby:', error);
+      alert('Failed to create lobby. Make sure the lobby server is running.');
+    }
   };
 
-  const handleJoinLobby = (lobby: Lobby) => {
-    const lobbyData = {
-      lobbyId: lobby.id,
-      lobbyName: lobby.name,
-      roomType: lobby.roomType,
-      action: 'join'
-    };
-    
-    onLaunch(lobbyData);
+  const handleJoinLobby = async (lobby: Lobby) => {
+    try {
+      const response = await fetch(`${LOBBY_SERVER_URL}/api/lobbies/${lobby.id}/join`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerName: username })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert(error.error || 'Failed to join lobby');
+        return;
+      }
+
+      console.log('✅ Joined lobby:', lobby.name);
+
+      // Launch into the lobby
+      onLaunch({
+        lobbyId: lobby.id,
+        roomName: lobby.id,
+        lobbyName: lobby.name,
+        roomType: lobby.roomType,
+        sceneName: lobby.sceneName,
+        action: 'join'
+      });
+    } catch (error) {
+      console.error('❌ Failed to join lobby:', error);
+      alert('Failed to join lobby. Make sure the lobby server is running.');
+    }
   };
 
   return (
@@ -78,11 +164,21 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
             </div>
             
             <div className="lobby-list-container">
+              {!isConnected && (
+                <div className="connection-warning">
+                  ⚠️ Connecting to lobby server...
+                </div>
+              )}
               {availableLobbies.length === 0 ? (
                 <div className="empty-lobbies">
                   <div className="empty-icon">🌊</div>
                   <h3>No active lobbies</h3>
                   <p>Be the first to create a lobby and start playing!</p>
+                  {!isConnected && (
+                    <p className="error-hint">
+                      Make sure the lobby server is running: <code>cd apps/server && npm run dev</code>
+                    </p>
+                  )}
                 </div>
               ) : (
                 <div className="lobby-list">
@@ -97,7 +193,8 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
                         <span className="lobby-badge">{lobby.roomType}</span>
                       </div>
                       <div className="lobby-item-info">
-                        <span>Players: {lobby.players}/{lobby.maxPlayers}</span>
+                        <span>Host: {lobby.host}</span>
+                        <span>Players: {lobby.players.length}/{lobby.maxPlayers}</span>
                       </div>
                     </div>
                   ))}

@@ -1,0 +1,16 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+.env
+*.log
+
+# Old Node.js files (kept for reference)
+node_modules/
+dist/
+src/
+package.json
+package-lock.json
+tsconfig.json
