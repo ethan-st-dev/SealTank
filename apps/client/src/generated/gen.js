@@ -11,16 +11,16 @@ globalThis["needle:dependencies:ready"] = import("./register_types.ts")
 
 export const needle_exported_files = new Array();
 globalThis["needle:codegen_files"] = needle_exported_files;
-import url_0 from "/assets/SampleNeedle.glb?url";
+import url_0 from "/assets/StandardArena.glb?url";
 needle_exported_files.push(url_0);
 document.addEventListener("DOMContentLoaded", () =>
 {
 	const needleEngine = document.querySelector("needle-engine");
 	if(needleEngine && needleEngine.getAttribute("src") === null)
 	{
-		needleEngine.setAttribute("hash", "1771392056739");
+		needleEngine.setAttribute("hash", "1772210232895");
 		needleEngine.setAttribute("src", JSON.stringify(needle_exported_files));
 	}
 });
 
-console.log("Made\ with\ ♥\ by\ 🌵\ Needle\ -\ https://needle\.tools\ —\ Version\ 4\.13\.1");
+console.log("Made\ with\ ♥\ by\ 🌵\ Needle\ -\ https://needle\.tools\ —\ Version\ 4\.15\.0");

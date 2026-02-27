@@ -16,7 +16,7 @@ interface Lobby {
 }
 
 const LOBBY_SERVER_URL = 'http://localhost:3001';
-const LOBBY_WS_URL = 'ws://localhost:3001/ws';
+const LOBBY_WS_URL = 'ws://localhost:3001';
 
 export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [view, setView] = useState<'main' | 'create'>('main');
@@ -27,10 +27,10 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   const roomTypes = [
-    { value: 'standard', label: 'Standard Arena', description: 'Classic gameplay area', scene: 'Scene' },
-    { value: 'ice', label: 'Ice Arena', description: 'Slippery surface with icebergs', scene: 'Scene' },
-    { value: 'deep', label: 'Deep Sea', description: 'Dark depths with obstacles', scene: 'Scene' },
-    { value: 'tropical', label: 'Tropical Bay', description: 'Warm waters and coral reefs', scene: 'Scene' },
+    { value: 'standard', label: 'Standard Arena', description: 'Classic gameplay area', scene: 'StandardArena' },
+    { value: 'ice', label: 'Ice Arena', description: 'Slippery surface with icebergs', scene: 'IceArena' },
+    { value: 'deep', label: 'Deep Sea', description: 'Dark depths with obstacles', scene: 'DeepSea' },
+    { value: 'tropical', label: 'Tropical Bay', description: 'Warm waters and coral reefs', scene: 'TropicalBay' },
   ];
 
   // Connect to WebSocket for real-time lobby updates

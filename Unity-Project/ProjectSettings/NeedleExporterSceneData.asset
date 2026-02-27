@@ -17,5 +17,9 @@ MonoBehaviour:
     Projects:
     - ProjectPath: ../apps/client
     BuilderScene: 
+  - Path: Assets/Scenes/StandardArena.unity
+    Projects:
+    - ProjectPath: ../apps/client
+    BuilderScene: 
   Projects:
   - ProjectPath: ../apps/client

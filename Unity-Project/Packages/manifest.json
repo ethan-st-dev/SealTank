@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.needle.engine-exporter": "4.13.1",
+    "com.needle.engine-exporter": "4.15.0",
     "com.needle.engine-samples": "1.4.4",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.collab-proxy": "2.9.3",

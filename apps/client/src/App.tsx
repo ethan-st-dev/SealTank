@@ -108,6 +108,7 @@ const App = () => {
 
       <div id="container" className="needle-container" style={{ marginTop: '7.5rem' }}>
         <NeedleEngine 
+          src={`/assets/${lobbyData.sceneName || 'Scene'}.glb`}
           style={{ position: "relative", display: "flex" }} 
           loading-style="light"
           room={lobbyData.roomName}

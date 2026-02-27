@@ -139,6 +139,19 @@ MonoBehaviour:
   m_Name: AudioImport
   m_EditorClassIdentifier: UnityGLTF.Plugins::UnityGLTF.Plugins.AudioImport
   enabled: 0
+--- !u!114 &-4404496597274930931
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d73111d7b6493da937accca1adfe6a, type: 3}
+  m_Name: WebpImport
+  m_EditorClassIdentifier: UnityGLTFScripts::UnityGLTF.Plugins.WebpImport
+  enabled: 1
 --- !u!114 &-4022903219355350626
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -234,6 +247,8 @@ MonoBehaviour:
   - {fileID: -722247356269191693}
   - {fileID: -5171682036154450133}
   - {fileID: -6088682488772041993}
+  - {fileID: 9153451293359416875}
+  - {fileID: -4404496597274930931}
   ExportPlugins:
   - {fileID: 3829487636159165645}
   - {fileID: -8791423410944406336}
@@ -446,4 +461,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd4c08c7d6d71f4ca7d83fb653d4f9b, type: 3}
   m_Name: TextMeshGameObjectExport
   m_EditorClassIdentifier: UnityGLTF.Plugins::UnityGLTF.Plugins.TextMeshGameObjectExport
+  enabled: 1
+--- !u!114 &9153451293359416875
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1f726221454139bfcce49d994d9d05, type: 3}
+  m_Name: ExrImport
+  m_EditorClassIdentifier: UnityGLTFScripts::UnityGLTF.Plugins.ExrImport
   enabled: 1

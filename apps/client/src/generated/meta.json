@@ -1,21 +1,16 @@
 {
-  "sceneName": "Sample Needle",
+  "sceneName": "Standard Arena",
   "meta": null,
   "absolutePath": "https://localhost:3000",
   "deployOnly": false,
-  "needleEditor": {
-    "enabled": true,
-    "components": true,
-    "materials": true,
-    "sceneCamera": false
-  },
-  "allowHotReload": true,
-  "generator": "Unity 6000.2.8f1, Needle Engine Integration @4.13.1",
+  "needleEditor": null,
   "gzip": false,
-  "developmentBuild": false,
+  "generator": "Unity 6000.2.8f1, Needle Engine Integration @4.15.0",
   "license": {
     "team": "org_mcxw3lu2nse0"
   },
+  "allowHotReload": true,
+  "developmentBuild": false,
   "facebookInstantGames": null,
   "useRapier": true
 }
