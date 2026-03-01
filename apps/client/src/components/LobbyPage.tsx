@@ -16,7 +16,7 @@ interface Lobby {
 }
 
 const LOBBY_SERVER_URL = 'http://localhost:3001';
-const LOBBY_WS_URL = 'ws://localhost:3001';
+const LOBBY_WS_URL = 'ws://localhost:3001/ws';
 
 export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [view, setView] = useState<'main' | 'create'>('main');
@@ -25,6 +25,7 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [availableLobbies, setAvailableLobbies] = useState<Lobby[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [isVRAvailable, setIsVRAvailable] = useState<boolean | null>(null);
 
   const roomTypes = [
     { value: 'standard', label: 'Standard Arena', description: 'Classic gameplay area', scene: 'StandardArena' },
@@ -69,6 +70,26 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
     return () => {
       websocket.close();
     };
+  }, []);
+
+  // Check for VR availability
+  useEffect(() => {
+    const checkVR = async () => {
+      if ('xr' in navigator) {
+        try {
+          // @ts-ignore - WebXR API
+          const isSupported = await navigator.xr?.isSessionSupported('immersive-vr');
+          setIsVRAvailable(isSupported);
+        } catch (error) {
+          console.log('VR check failed:', error);
+          setIsVRAvailable(false);
+        }
+      } else {
+        setIsVRAvailable(false);
+      }
+    };
+
+    checkVR();
   }, []);
 
   const handleCreateLobby = async () => {
@@ -147,6 +168,50 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
 
   return (
     <div className="lobby-page">
+      {/* VR Required Overlay - Can bypass with button */}
+      {isVRAvailable === false && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.9)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          color: 'white',
+          textAlign: 'center',
+          padding: '20px'
+        }}>
+          <div style={{ fontSize: '64px', marginBottom: '20px' }}>🥽</div>
+          <h1 style={{ fontSize: '32px', marginBottom: '20px' }}>VR Headset Required</h1>
+          <p style={{ fontSize: '18px', maxWidth: '500px', lineHeight: '1.6' }}>
+            Please put on your VR headset to proceed. This experience requires a WebXR-compatible VR device.
+          </p>
+          <p style={{ fontSize: '14px', marginTop: '20px', opacity: 0.7 }}>
+            Supported devices: Meta Quest, PSVR 2, HTC Vive, and other WebXR-compatible headsets
+          </p>
+          <button 
+            onClick={() => setIsVRAvailable(null)}
+            style={{
+              marginTop: '30px',
+              padding: '12px 24px',
+              fontSize: '16px',
+              backgroundColor: '#666',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+          >
+            Continue Anyway (Testing)
+          </button>
+        </div>
+      )}
+
       <div className="lobby-container">
         {view === 'main' && (
           <div className="lobby-main">

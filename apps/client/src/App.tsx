@@ -22,6 +22,24 @@ const App = () => {
     }
   }, []);
 
+  // Debug VR availability
+  useEffect(() => {
+    if (lobbyData) {
+      console.log('🎮 Loading scene:', `/assets/${lobbyData.sceneName || 'Scene'}.glb`);
+      console.log('🔗 Room ID:', lobbyData.roomName);
+      
+      // Check WebXR
+      if ('xr' in navigator) {
+        // @ts-ignore
+        navigator.xr?.isSessionSupported('immersive-vr').then((supported: boolean) => {
+          console.log('🥽 WebXR VR Support:', supported);
+        });
+      } else {
+        console.log('❌ WebXR not available');
+      }
+    }
+  }, [lobbyData]);
+
   // Fetch rigidbodies from needle
   const bodies: Rigidbody[] = [];
   onStart(_context => {
