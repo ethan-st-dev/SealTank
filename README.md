@@ -9,7 +9,7 @@ WebXR Lobby app featuring virtual seals in a meeting. Next Iteration of [WeSellS
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&labelColor=gray)
 ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=white&labelColor=gray)
 ![Unity](https://img.shields.io/badge/Unity-000000?logo=unity&logoColor=white&labelColor=gray)
-![Needle Engine](https://img.shields.io/badge/Needle%20Engine-333333?logo=cube&logoColor=white&labelColor=gray)
+![Needle Engine](https://img.shields.io/badge/Unity-000000?logo=unity&logoColor=white&labelColor=gra)
 
 ## _Demo: Admin_ - Uploading and Managing Content 
 <p align="center">
