@@ -51,5 +51,6 @@ Console.WriteLine($"   GET  http://localhost:{port}/api/lobbies");
 Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/create");
 Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/{{id}}/join");
 Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/{{id}}/leave");
+Console.WriteLine($"💡 Server listening on all network interfaces (0.0.0.0:{port})");
 
-app.Run($"http://localhost:{port}");
+app.Run($"http://0.0.0.0:{port}");

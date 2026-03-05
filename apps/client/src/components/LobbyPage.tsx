@@ -15,8 +15,23 @@ interface Lobby {
   maxPlayers: number;
 }
 
-const LOBBY_SERVER_URL = 'http://localhost:3001';
-const LOBBY_WS_URL = 'ws://localhost:3001/ws';
+// Dynamically determine server URL based on current host
+const getServerUrl = () => {
+  const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+  const host = window.location.hostname;
+  const port = '3001';
+  return `${protocol}//${host}:${port}`;
+};
+
+const getWebSocketUrl = () => {
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const host = window.location.hostname;
+  const port = '3001';
+  return `${protocol}//${host}:${port}/ws`;
+};
+
+const LOBBY_SERVER_URL = getServerUrl();
+const LOBBY_WS_URL = getWebSocketUrl();
 
 export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
   const [view, setView] = useState<'main' | 'create'>('main');

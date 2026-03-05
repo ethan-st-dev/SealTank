@@ -71,7 +71,10 @@ const App = () => {
   const handleLeaveLobby = async () => {
     if (lobbyData?.lobbyId) {
       try {
-        await fetch(`http://localhost:3001/api/lobbies/${lobbyData.lobbyId}/leave`, {
+        const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+        const host = window.location.hostname;
+        const serverUrl = `${protocol}//${host}:3001`;
+        await fetch(`${serverUrl}/api/lobbies/${lobbyData.lobbyId}/leave`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ playerName: username })
