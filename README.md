@@ -1,5 +1,5 @@
 
-# WeSellSeals
+# SealTank
 WebXR Lobby app featuring virtual seals in a meeting. Next Iteration of [WeSellSeals](https://github.com/ethan-st-dev/WeSellSeals).
  
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&labelColor=gray)
