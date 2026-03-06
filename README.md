@@ -1,4 +1,4 @@
-⚙️_This project is currently in development._⚙️
+⚙️ _This project is currently in development._ ⚙️
 # SealTank
 WebXR Lobby app featuring virtual seals in a meeting. Next Iteration of [WeSellSeals](https://github.com/ethan-st-dev/WeSellSeals).
  
