@@ -1,4 +1,4 @@
-
+_Currently in development for this project._
 # SealTank
 WebXR Lobby app featuring virtual seals in a meeting. Next Iteration of [WeSellSeals](https://github.com/ethan-st-dev/WeSellSeals).
  
