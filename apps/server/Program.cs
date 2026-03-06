@@ -7,15 +7,26 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel for HTTPS on all interfaces
+var port = Environment.GetEnvironmentVariable("PORT") ?? "3001";
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port), listenOptions =>
+    {
+        listenOptions.UseHttps();
+    });
+});
+
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.SetIsOriginAllowed(origin => true) // Allow any origin for local dev
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials(); // Required for secure WebSocket connections
     });
 });
 builder.Services.AddSingleton<LobbyManager>();
@@ -43,14 +54,14 @@ app.Map("/ws", async context =>
 
 app.MapControllers();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "3001";
-Console.WriteLine($"🚀 Lobby server running on port {port}");
+Console.WriteLine($"🚀 Lobby server running on port {port} (HTTPS)");
 Console.WriteLine($"📡 WebSocket server ready for connections");
 Console.WriteLine($"🌐 API endpoints:");
-Console.WriteLine($"   GET  http://localhost:{port}/api/lobbies");
-Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/create");
-Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/{{id}}/join");
-Console.WriteLine($"   POST http://localhost:{port}/api/lobbies/{{id}}/leave");
-Console.WriteLine($"💡 Server listening on all network interfaces (0.0.0.0:{port})");
+Console.WriteLine($"   GET  https://localhost:{port}/api/lobbies");
+Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/create");
+Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/{{id}}/join");
+Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/{{id}}/leave");
+Console.WriteLine($"💡 Server listening on all network interfaces (HTTPS)");
+Console.WriteLine($"⚠️  You may need to accept the self-signed certificate in your browser when accessing via IP");
 
-app.Run($"http://0.0.0.0:{port}");
+app.Run();

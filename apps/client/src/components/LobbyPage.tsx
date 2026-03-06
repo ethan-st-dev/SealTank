@@ -17,17 +17,15 @@ interface Lobby {
 
 // Dynamically determine server URL based on current host
 const getServerUrl = () => {
-  const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
   const host = window.location.hostname;
   const port = '3001';
-  return `${protocol}//${host}:${port}`;
+  return `https://${host}:${port}`;
 };
 
 const getWebSocketUrl = () => {
-  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const host = window.location.hostname;
   const port = '3001';
-  return `${protocol}//${host}:${port}/ws`;
+  return `wss://${host}:${port}/ws`;
 };
 
 const LOBBY_SERVER_URL = getServerUrl();

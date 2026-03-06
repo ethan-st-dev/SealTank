@@ -5,6 +5,8 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 const isCIEnvironment = process.env.CI !== undefined;
 
+console.log('🌐 Vite serving over HTTPS for localhost and network access');
+
 export default defineConfig(async (command) => {
 
     const { needlePlugins, useGzip, loadConfig } = await import("@needle-tools/engine/plugins/vite/index.js");
@@ -21,6 +23,7 @@ export default defineConfig(async (command) => {
         ],
         server: {
             https: true,
+            host: '0.0.0.0', // Listen on all network interfaces
             proxy: { // workaround: specifying a proxy skips HTTP2 which is currently problematic in Vite since it causes session memory timeouts.
                 'https://localhost:3000': 'https://localhost:3000'
             },
