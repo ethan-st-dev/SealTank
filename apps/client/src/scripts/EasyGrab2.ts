@@ -1,7 +1,7 @@
 import { Behaviour, Rigidbody, IPointerEventHandler, PointerEventData, registerType } from "@needle-tools/engine";
 
 @registerType
-export class EasyGrab extends Behaviour implements IPointerEventHandler {
+export class EasyGrab2 extends Behaviour implements IPointerEventHandler {
     
     private rb: Rigidbody | null = null;
 
