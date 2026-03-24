@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure Kestrel for HTTPS on all interfaces
 var port = Environment.GetEnvironmentVariable("PORT") ?? "3001";
+builder.WebHost.UseUrls($"https://0.0.0.0:{port}");
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(int.Parse(port), listenOptions =>
@@ -37,6 +38,10 @@ var app = builder.Build();
 app.UseCors();
 app.UseWebSockets();
 
+// Health check endpoint
+app.MapGet("/", () => "🚀 SealTank Server is running!");
+app.MapGet("/health", () => new { status = "healthy", timestamp = DateTime.UtcNow });
+
 // WebSocket endpoint
 app.Map("/ws", async context =>
 {
@@ -57,11 +62,15 @@ app.MapControllers();
 Console.WriteLine($"🚀 Lobby server running on port {port} (HTTPS)");
 Console.WriteLine($"📡 WebSocket server ready for connections");
 Console.WriteLine($"🌐 API endpoints:");
+Console.WriteLine($"   GET  https://localhost:{port}/ (health check)");
 Console.WriteLine($"   GET  https://localhost:{port}/api/lobbies");
 Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/create");
 Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/{{id}}/join");
 Console.WriteLine($"   POST https://localhost:{port}/api/lobbies/{{id}}/leave");
-Console.WriteLine($"💡 Server listening on all network interfaces (HTTPS)");
-Console.WriteLine($"⚠️  You may need to accept the self-signed certificate in your browser when accessing via IP");
+Console.WriteLine($"💡 Server listening on all network interfaces (0.0.0.0:{port})");
+Console.WriteLine($"⚠️  When accessing via IP address (e.g., https://192.168.x.x:{port}),");
+Console.WriteLine($"    you'll get a certificate warning - click 'Advanced' and 'Proceed' to accept it");
+Console.WriteLine($"🔥 If you can't access from other devices, check Windows Firewall:");
+Console.WriteLine($"    Run as admin: netsh advfirewall firewall add rule name=\"SealTank Server\" dir=in action=allow protocol=TCP localport={port}");
 
 app.Run();

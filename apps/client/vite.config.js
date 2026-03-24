@@ -4,13 +4,9 @@ import react from '@vitejs/plugin-react'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 
 const isCIEnvironment = process.env.CI !== undefined;
-const useHttps = process.env.VITE_HTTPS === 'true';
+const useHttps = true; // Force HTTPS
 
-if (useHttps) {
-    console.log('🌐 Vite serving over HTTPS for localhost and network access');
-} else {
-    console.log('🌐 Vite serving over HTTP (set VITE_HTTPS=true for HTTPS)');
-}
+console.log('🌐 Vite serving over HTTPS for localhost and network access');
 
 export default defineConfig(async (command) => {
 
