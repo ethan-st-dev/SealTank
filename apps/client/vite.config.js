@@ -4,8 +4,13 @@ import react from '@vitejs/plugin-react'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 
 const isCIEnvironment = process.env.CI !== undefined;
+const useHttps = process.env.VITE_HTTPS === 'true';
 
-console.log('🌐 Vite serving over HTTPS for localhost and network access');
+if (useHttps) {
+    console.log('🌐 Vite serving over HTTPS for localhost and network access');
+} else {
+    console.log('🌐 Vite serving over HTTP (set VITE_HTTPS=true for HTTPS)');
+}
 
 export default defineConfig(async (command) => {
 
@@ -17,16 +22,16 @@ export default defineConfig(async (command) => {
         assetsInclude: ['*'],
         plugins: [
             react(),
-            basicSsl(),
+            useHttps ? basicSsl() : null,
             useGzip(needleConfig) && !isCIEnvironment ? viteCompression({ deleteOriginFile: true }) : null,
             needlePlugins(command, needleConfig),
         ],
         server: {
-            https: true,
+            https: useHttps,
             host: '0.0.0.0', // Listen on all network interfaces
-            proxy: { // workaround: specifying a proxy skips HTTP2 which is currently problematic in Vite since it causes session memory timeouts.
+            proxy: useHttps ? { // workaround: specifying a proxy skips HTTP2 which is currently problematic in Vite since it causes session memory timeouts.
                 'https://localhost:3000': 'https://localhost:3000'
-            },
+            } : undefined,
             strictPort: true,
             port: 3000,
         },
