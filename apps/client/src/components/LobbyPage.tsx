@@ -61,7 +61,12 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
         const data = JSON.parse(event.data);
         if (data.type === 'lobby-list') {
           console.log('📋 Received lobby list:', data.lobbies);
-          setAvailableLobbies(data.lobbies);
+          // Ensure all lobbies have the players array
+          const validatedLobbies = (data.lobbies || []).map((lobby: any) => ({
+            ...lobby,
+            players: lobby.players || []
+          }));
+          setAvailableLobbies(validatedLobbies);
         }
       } catch (error) {
         console.error('Failed to parse WebSocket message:', error);
@@ -272,7 +277,7 @@ export const LobbyPage: React.FC<LobbyPageProps> = ({ username, onLaunch }) => {
                       </div>
                       <div className="lobby-item-info">
                         <span>Host: {lobby.host}</span>
-                        <span>Players: {lobby.players.length}/{lobby.maxPlayers}</span>
+                        <span>Players: {lobby.players?.length || 0}/{lobby.maxPlayers}</span>
                       </div>
                     </div>
                   ))}

@@ -102,16 +102,6 @@ const App = () => {
     );
   }
 
-  // Show lobby page if no lobby has been joined/created
-  if (!lobbyData) {
-    return (
-      <>
-        <Header username={username} onLogout={handleLogout} />
-        <LobbyPage username={username} onLaunch={handleLaunch} />
-      </>
-    );
-  }
-
   // Show game when lobby is active
   return (
     <>
@@ -129,6 +119,7 @@ const App = () => {
 
       <div id="container" className="needle-container" style={{ marginTop: '7.5rem' }}>
         <NeedleEngine 
+          key={lobbyData.roomName} // Force remount when changing lobbies
           src={`/assets/${lobbyData.sceneName || 'Scene'}.glb`}
           style={{ position: "relative", display: "flex" }} 
           loading-style="light"

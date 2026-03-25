@@ -153,7 +153,11 @@ public class LobbyManager
             lobbies = GetActiveLobbies()
         };
 
-        var json = JsonSerializer.Serialize(message);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        var json = JsonSerializer.Serialize(message, options);
         var bytes = Encoding.UTF8.GetBytes(json);
         await webSocket.SendAsync(
             new ArraySegment<byte>(bytes),
@@ -171,7 +175,11 @@ public class LobbyManager
             lobbies = GetActiveLobbies()
         };
 
-        var json = JsonSerializer.Serialize(message);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        var json = JsonSerializer.Serialize(message, options);
         var bytes = Encoding.UTF8.GetBytes(json);
 
         var sentCount = 0;
