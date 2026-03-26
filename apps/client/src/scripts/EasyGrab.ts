@@ -17,21 +17,14 @@ export class EasyGrab extends Behaviour implements IPointerEventHandler {
     onPointerDown(_pd: PointerEventData) {
         console.log("EasyGrab: onPointerDown", this.gameObject.name);
         if (this.rb) {
-            console.log("EasyGrab: Setting kinematic=true, was:", this.rb.isKinematic);
-            this.rb.isKinematic = true;
-            this.rb.useGravity = false;
-            this.rb.setVelocity(0, 0, 0);
-            this.rb.setAngularVelocity(0, 0, 0);
-            console.log("EasyGrab: After setting - kinematic:", this.rb.isKinematic, "useGravity:", this.rb.useGravity);
+            this.rb.useGravity = false;        
         }
     }
 
     onPointerUp(_pd: PointerEventData) {
         console.log("EasyGrab: onPointerUp", this.gameObject.name);
         if (this.rb) {
-            this.rb.isKinematic = false;
-            this.rb.useGravity = true;
-            console.log("EasyGrab: Released - kinematic:", this.rb.isKinematic, "useGravity:", this.rb.useGravity);
-        }
+            this.rb.useGravity = true;      
+    }
     }
 }
